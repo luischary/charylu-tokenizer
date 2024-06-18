@@ -13,10 +13,10 @@ Para utilizar os tokenizadores utilize o seguinte código de exemplo:
 from charylutokenizer.load import load
 
 # inicializa o tokenizer
-tokenizer = load(90, "_nocode") # amanho do vocabulario desejado (k) e tipo
+tokenizer = load(90, "_nocode") # tamanho do vocabulario desejado (k) e tipo
 
 # tokeniza string
-tokenizer.tokenize("texto de teste") #[47941, 9851, 16941]
+tokenizer.tokenize("texto de teste") # [47941, 9851, 16941]
 
 # detokeniza tokens
 tokenizer.detokenize([47941, 9851, 16941]) # "testo de teste"
@@ -28,11 +28,11 @@ Os tokenizadores foram treinados em uma base proprietária que possui uma ampla 
 
 Para o treinamento dos tokenizadores, foi feita uma filtragem principalmente nas línguas de modo a aumentar a eficiência nas linguas latinas e inglês, dessa forma o tokenizador deve comportar bem:
 
-- Português (Brasil e Portugal) ~ 80% da base de treino
-- Espanhol ~ 1.5% da base de treino
-- Italiano ~ 1.5% da base de treino
-- Francês ~ 2% da base de treino
-- Inglês ~ 15% da base de treino
+- **Português (Brasil e Portugal)** ~ 80% da base de treino
+- **Espanhol** ~ 1.5% da base de treino
+- **Italiano** ~ 1.5% da base de treino
+- **Francês** ~ 2% da base de treino
+- **Inglês** ~ 15% da base de treino
 
 
 ## Versões
@@ -59,3 +59,4 @@ Foram treinados dois tipos diferentes de tokenizadores:
 
 
 ## Changelog
+- version 0.0.5 - first usable version
