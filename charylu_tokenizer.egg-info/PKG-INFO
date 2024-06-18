@@ -1,8 +1,0 @@
-Metadata-Version: 2.1
-Name: charylu-tokenizer
-Version: 0.0.4
-Summary: Biblioteca com tokenizadores criados por Luis Chary
-Author: Luis Felipe Chary
-License-File: LICENSE.txt
-Requires-Dist: tokenizers==0.19.1
-Requires-Dist: numpy==2.0.0
