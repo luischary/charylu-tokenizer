@@ -10,4 +10,6 @@ setup(
     install_requires=["tokenizers==0.19.1", "numpy==2.0.0"],
     tests_require=["pytest==8.2.2"],
     test_suite="tests",
+    long_description=open("README.md", "r", encoding="utf-8").read(),
+    long_description_content_type="text/markdown",
 )

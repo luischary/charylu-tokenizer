@@ -108,7 +108,8 @@ class CharyluTokenizer:
         # para isso colocarmos um decoder de bytelevel
         # tokenizer.post_processor = processors.ByteLevel(trim_offsets=False)
         # tokenizer.decoder = decoders.ByteLevel()
-        tokenizer.decoder = decoders.BPEDecoder(suffix="Ġ")
+        # tokenizer.decoder = decoders.BPEDecoder(suffix="Ġ")
+        tokenizer.decoder = decoders.Metaspace("Ġ", prepend_scheme="never")
 
         # # antes de salvar tira o cara custom que ele nao gosta
         tokenizer.pre_tokenizer = pre_tokenizers.Whitespace()
@@ -138,13 +139,7 @@ class CharyluTokenizer:
         self.tokenizer.pre_tokenizer = pre_tokenizers.PreTokenizer.custom(
             CharyluPreTokenizer()
         )
-        # self.tokenizer.normalizer = normalizers.Sequence(
-        #     [
-        #         normalizers.Replace("\n(.)\n", "\n"),
-        #         normalizers.Replace("[\n\n]+", "\n\n"),
-        #         normalizers.NFKC(),
-        #     ]
-        # )
+        self.tokenizer.decoder = decoders.Metaspace("Ġ", prepend_scheme="never")
 
     def tokenize(
         self, text, padding="do_not_pad", truncation=None, max_length=None
@@ -158,48 +153,3 @@ class CharyluTokenizer:
 
     def detokenize(self, tokens: List[int], skip_special_tokens: bool = True) -> str:
         return self.tokenizer.decode(tokens, skip_special_tokens=skip_special_tokens)
-
-
-import numpy as np
-
-
-def file_text_generator(file_path):
-    texto_documento = ""
-    with open(file_path, "r", encoding="utf8") as f:
-        for texto_linha in f:
-            if texto_linha.find("<END_OF_DOC>") < 0:
-                texto_documento += "\n" + texto_linha
-            else:
-                if np.random.random() >= 0:
-                    yield texto_documento
-                texto_documento = ""
-
-
-if __name__ == "__main__":
-    tokenizer = CharyluTokenizer(
-        tokenizer_path="/home/luis/projetos/luis_transformers/artifacts/charylu/tokenizer_2024_90k.json"
-    )
-    # tokenizer.train(textos, vocab_size=1000)
-    tokens = tokenizer.tokenize(
-        "<s><pad>ho ho ho o o o o feliz natal do caralhão Amarelado da porra</s>"
-    )
-    tokens = [(t, tokenizer.detokenize([t])) for t in tokens]
-    print(tokens)
-    print(
-        tokenizer.detokenize(
-            tokenizer.tokenize(
-                "ho ho ho o o o o feliz natal do caralhão Amarelado da porra"
-            )
-        )
-    )
-
-    for texto in file_text_generator(
-        "/home/luis/projetos/luis_transformers/tokenizer/training_data.txt"
-    ):
-        if np.random.random() > 0.99:
-            texto = texto[:1000]
-            tokens = tokenizer.tokenize(texto)
-            tokens = [(t, tokenizer.detokenize([t])) for t in tokens]
-            print(tokens)
-            print(tokenizer.detokenize(tokenizer.tokenize(texto)))
-            break
