@@ -4,7 +4,7 @@ setup(
     name="charylu-tokenizer",
     packages=find_packages(include=["charylutokenizer"]),
     include_package_data=True,
-    version="0.0.4",
+    version="0.0.5",
     description="Biblioteca com tokenizadores criados por Luis Chary",
     author="Luis Felipe Chary",
     install_requires=["tokenizers==0.19.1", "numpy==2.0.0"],
